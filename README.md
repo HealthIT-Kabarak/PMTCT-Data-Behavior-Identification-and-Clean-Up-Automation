@@ -28,3 +28,6 @@ During the EDA process we explored descriptive statistics and multicoliniarity
 
 Insight -
 Most features have a high and direct correlation
+
+# Powerpoint Presentation
+https://www.canva.com/design/DAFa_Mh5Tis/RenMwGU2yPHvxGLl3_6lLQ/edit?utm_source=shareButton&utm_medium=email&utm_campaign=designshare
