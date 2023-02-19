@@ -4,7 +4,7 @@ Introduction
 The HealthIT project continues to support the implementation of various Information Systems on the Ministry of Health. One of the overarching goals of the continued development and deployment of health information systems is to support data driven decision making in the healthcare sector. In this regard a lot of efforts have gone into the development of mechanisms to collect accurate data, to ensure its quality and to develop reports and visualizations. 
 Our project focused on the development of a classification model app that would check and see which sites did not report their  PMTCT - Prevention-Of-Mother-To-Child-Hiv-Transmission. Reprting of HIV testing indicators is inconstistend across facilities some tests include tests from some testing locations and exclude PMTCT tests 
 
-Objectives of the project
+*Objectives of the project*
 
 1.To create a model that will predict accurately facilities that have not submitted their PMTCT data
 
