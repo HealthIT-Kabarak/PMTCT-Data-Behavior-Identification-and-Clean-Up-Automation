@@ -25,3 +25,6 @@ The data was provided by the Health It team from there systems
 EDA(Exploratory Data Analysis)
 
 During the EDA process we explored descriptive statistics and multicoliniarity
+
+Insight -
+Most features have a high and direct correlation
