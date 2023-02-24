@@ -21,8 +21,11 @@ target = "PMTCT"
 features = ['facility', 'ward', 'sub_county', 'county', 'indicators', 
             'khis_data', 'datim_value', 'period', 'Month']
 
-X = df1[features]
-y = df1[target]
+if st.checkbox('Show dataframe'):
+    st.write(df)
+
+X = df[features]
+y = df[target]
 
 X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=.2, random_state=42)
 
@@ -42,8 +45,6 @@ X_test_encoded = encoder.transform(X_test)
 rf_model = RandomForestClassifier(n_estimators=100, random_state=42)
 rf_model.fit(X_train_encoded, y_train)
 
-
-st.set_page_config (page_title="PMTCT Reporting", page_icon=":heart:", layout="centered", initial_sidebar_state="expanded")
 
 st.title("HIV Testing")
 
@@ -71,40 +72,26 @@ st.subheader('Classify the data')
 # Create a selectbox for the classification model
 classifier = st.selectbox('Select the classifier', ('Logistic Regression', 'Random Forest'))
 
-def user_input_features():
-    
-    facility = st.text_input("Facility", "Facility")
-    period = st.text_input("Period", "Period")
+# Variables for the user input features
+facility = st.text_input("facility", "Enter facility")
+ward = st.text_input("ward", "Enter ward")
 
-    data = {'facility': facility,
-            'period': period}
-
-    features = pd.DataFrame(data, index=[0])
-    return features
-
-df = user_input_features()
-
-st.subheader('User Input parameters')
-st.write(df)
-
-if classifier == 'Logistic Regression':
-    prediction = lr_model.predict(df)
-    prediction_proba = lr_model.predict_proba(df)
-
-elif classifier == 'Random Forest':
-    prediction = rf_model.predict(df)
-    prediction_proba = rf_model.predict_proba(df)
-
-st.subheader('Prediction')
-st.write(prediction)
-
-st.subheader('Prediction Probability')
-st.write(prediction_proba)
-
-st.subheader('Data')
-st.write(data)
-    
+# Create a button which when clicked predicts the class
 if st.button("Predict"):
+    input = pd.DataFrame([[facility, ward]], columns=['facility', 'ward'])
+
+    # Encode the input
+    input_encoded = encoder.transform(input)
+
+    if classifier == 'Logistic Regression':
+        prediction = lr_model.predict(input_encoded)
+        prediction_proba = lr_model.predict_proba(input_encoded)
+
+    elif classifier == 'Random Forest':
+        prediction = rf_model.predict(input_encoded)
+        prediction_proba = rf_model.predict_proba(input_encoded)
+
+    st.subheader('Prediction')
     st.write(prediction)
 
-st.write("This is a simple HIV Testing prediction web app to predict whether a facility reports PMTCT or not.")
+
