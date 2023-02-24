@@ -78,11 +78,12 @@ ward = st.text_input("ward", "Enter ward")
 
 # Create a button which when clicked predicts the class
 if st.button("Predict"):
-    input = pd.DataFrame([[facility, ward]], columns=['facility', 'ward'])
-
+    input = df[['facility', 'ward', 'sub_county', 'county', 'indicators',
+                'khis_data', 'datim_value', 'period', 'Month']]
+    
     # Encode the input
     input_encoded = encoder.transform(input)
-
+    # Make prediction
     if classifier == 'Logistic Regression':
         prediction = lr_model.predict(input_encoded)
         prediction_proba = lr_model.predict_proba(input_encoded)
@@ -93,5 +94,5 @@ if st.button("Predict"):
 
     st.subheader('Prediction')
     st.write(prediction)
-
+    st.stop() # Stop streamlit from rerunning the code
 
