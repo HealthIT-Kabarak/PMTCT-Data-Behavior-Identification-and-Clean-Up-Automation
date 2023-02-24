@@ -83,6 +83,7 @@ if st.button("Predict"):
     
     # Encode the input
     input_encoded = encoder.transform(input)
+
     # Make prediction
     if classifier == 'Logistic Regression':
         prediction = lr_model.predict(input_encoded)
@@ -94,5 +95,21 @@ if st.button("Predict"):
 
     st.subheader('Prediction')
     st.write(prediction)
-    st.stop() # Stop streamlit from rerunning the code
 
+    st.subheader('Prediction Probability')
+    st.write(prediction_proba)
+
+    st.subheader('Confusion Matrix')
+    st.write(confusion_matrix(y_test, prediction))
+
+    st.subheader('Classification Report')
+    st.write(classification_report(y_test, prediction))
+
+    st.subheader('Accuracy Score')
+    st.write(accuracy_score(y_test, prediction))
+
+    # Return the prediction
+    if prediction == 1:
+        st.write("The facility reports PMTCT")
+    else:
+        st.write("The facility does not report PMTCT")
