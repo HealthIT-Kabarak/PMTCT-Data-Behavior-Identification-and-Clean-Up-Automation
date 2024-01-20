@@ -1,10 +1,3 @@
-# The next task is to build a simple web app that will allow users to input data and get a prediction
-# We will use streamlit to build the web app
-# We will use ngrok to expose the web app to the internet
-# We will use the following commands to install streamlit and ngrok
-#!pip install streamlit
-#!pip install pyngrok
-
 # Import streamlit
 import streamlit as st
 
@@ -81,9 +74,6 @@ st.title("HIV Dashboard")
 # Create a sidebar for the dashboard
 st.sidebar.title("HIV Dashboard")
 
-# Create a multiselect widget for the dashboard
-facility = st.sidebar.multiselect("Facility", data['facility'].unique())
-
 # Create a condition that will check if the facility multiselect widget has been used
 if len(facility) > 0:
   # Filter the data
@@ -93,8 +83,8 @@ if len(facility) > 0:
 county = st.sidebar.multiselect("County", data['county'].unique())
 sub_county = st.sidebar.multiselect("Sub County", data['sub_county'].unique())
 ward = st.sidebar.multiselect("Ward", data['ward'].unique())
+facility = st.sidebar.multiselect("Facility", data['facility'].unique())
 indicators = st.sidebar.multiselect("Indicators", data['indicators'].unique())
-khis_data = st.sidebar.multiselect("Khis Data", data['khis_data'].unique())
 datim_value = st.sidebar.multiselect("Datim Value", data['datim_value'].unique())
 period = st.sidebar.multiselect("Period", data['period'].unique())
 Month = st.sidebar.multiselect("Month", data['Month'].unique())
@@ -131,7 +121,6 @@ if data.empty:
   st.write("Please select a value from the sidebar")
 else:
   st.write("HIV Positive Patients")
-
 
   # Create a bar chart
   fig = px.bar(data, x='facility', y='datim_value', color='county', height=500)
