@@ -74,25 +74,13 @@ st.title("HIV Dashboard")
 # Create a sidebar for the dashboard
 st.sidebar.title("HIV Dashboard")
 
-# Create a condition that will check if the facility multiselect widget has been used
-if len(facility) > 0:
-  # Filter the data
-  data = data[data['facility'].isin(facility)]
-
-# Create a multiselect widget for the dashboard
-county = st.sidebar.multiselect("County", data['county'].unique())
-#sub_county = st.sidebar.multiselect("Sub County", data['sub_county'].unique())
-#ward = st.sidebar.multiselect("Ward", data['ward'].unique())
-#facility = st.sidebar.multiselect("Facility", data['facility'].unique())
-indicators = st.sidebar.multiselect("Indicators", data['indicators'].unique())
-datim_value = st.sidebar.multiselect("Datim Value", data['datim_value'].unique())
-period = st.sidebar.multiselect("Period", data['period'].unique())
-Month = st.sidebar.multiselect("Month", data['Month'].unique())
-
 # Next we will create a condition that will check if the multiselect widgets have been used
 if len(county) > 0:
   # Filter the data
   data = data[data['county'].isin(county)]
+
+# Create a multiselect widget for the dashboard
+county = st.sidebar.multiselect("County", data['county'].unique())
 
 # For sub county, we need to only display the sub counties that are in the selected county
 # Create a condition that will check if the county multiselect widget has been used
@@ -154,6 +142,17 @@ if len(period) > 0:
 if len(Month) > 0:  
   # Filter the data
   data = data[data['Month'].isin(Month)]
+
+# Create a multiselect widget for the dashboard
+#county = st.sidebar.multiselect("County", data['county'].unique())
+#sub_county = st.sidebar.multiselect("Sub County", data['sub_county'].unique())
+#ward = st.sidebar.multiselect("Ward", data['ward'].unique())
+#facility = st.sidebar.multiselect("Facility", data['facility'].unique())
+#indicators = st.sidebar.multiselect("Indicators", data['indicators'].unique())
+#datim_value = st.sidebar.multiselect("Datim Value", data['datim_value'].unique())
+#period = st.sidebar.multiselect("Period", data['period'].unique())
+#Month = st.sidebar.multiselect("Month", data['Month'].unique())
+
 
 # Create a condition that will check if the data is empty
 if data.empty:
