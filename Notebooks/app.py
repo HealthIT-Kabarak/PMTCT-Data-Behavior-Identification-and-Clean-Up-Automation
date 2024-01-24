@@ -81,9 +81,9 @@ if len(facility) > 0:
 
 # Create a multiselect widget for the dashboard
 county = st.sidebar.multiselect("County", data['county'].unique())
-sub_county = st.sidebar.multiselect("Sub County", data['sub_county'].unique())
-ward = st.sidebar.multiselect("Ward", data['ward'].unique())
-facility = st.sidebar.multiselect("Facility", data['facility'].unique())
+#sub_county = st.sidebar.multiselect("Sub County", data['sub_county'].unique())
+#ward = st.sidebar.multiselect("Ward", data['ward'].unique())
+#facility = st.sidebar.multiselect("Facility", data['facility'].unique())
 indicators = st.sidebar.multiselect("Indicators", data['indicators'].unique())
 datim_value = st.sidebar.multiselect("Datim Value", data['datim_value'].unique())
 period = st.sidebar.multiselect("Period", data['period'].unique())
@@ -93,12 +93,52 @@ Month = st.sidebar.multiselect("Month", data['Month'].unique())
 if len(county) > 0:
   # Filter the data
   data = data[data['county'].isin(county)]
+
+# For sub county, we need to only display the sub counties that are in the selected county
+# Create a condition that will check if the county multiselect widget has been used
+if len(county) > 0:
+  # Filter the data
+  data = data[data['county'].isin(county)]
+  # Update the sub county multiselect widget to only display the sub counties that are in the selected county
+  sub_county = st.sidebar.multiselect("Sub County", data['sub_county'].unique())
+  # Create a condition that will check if the sub county multiselect widget has been used
+  if len(sub_county) > 0:
+    # Filter the data
+    data = data[data['sub_county'].isin(sub_county)]
+else:
+  # Update the sub county multiselect widget to match the data
+  sub_county = st.sidebar.multiselect("Sub County", data['sub_county'].unique())
+
+# For the ward, we need to only display the wards that are in the selected sub county
+# Create a condition that will check if the sub county multiselect widget has been used
 if len(sub_county) > 0:
   # Filter the data
-  data = data[data['sub-county'].isin(sub_county)]
+  data = data[data['sub_county'].isin(sub_county)]
+  # Update the ward multiselect widget to only display the wards that are in the selected sub county
+  ward = st.sidebar.multiselect("Ward", data['ward'].unique())
+  # Create a condition that will check if the ward multiselect widget has been used
+  if len(ward) > 0:
+    # Filter the data
+    data = data[data['ward'].isin(ward)]
+else:
+  # Update the ward multiselect widget to match the data
+  ward = st.sidebar.multiselect("Ward", data['ward'].unique())
+
+# For the facility, we need to only display the facilities that are in the selected ward
+# Create a condition that will check if the ward multiselect widget has been used
 if len(ward) > 0:
   # Filter the data
   data = data[data['ward'].isin(ward)]
+  # Update the facility multiselect widget to only display the facilities that are in the selected ward
+  facility = st.sidebar.multiselect("Facility", data['facility'].unique())
+  # Create a condition that will check if the facility multiselect widget has been used
+  if len(facility) > 0:
+    # Filter the data
+    data = data[data['facility'].isin(facility)]
+else:
+  # Update the facility multiselect widget to match the data
+  facility = st.sidebar.multiselect("Facility", data['facility'].unique())
+
 if len(indicators) > 0:
   # Filter the data
   data = data[data['indicators'].isin(indicators)]
