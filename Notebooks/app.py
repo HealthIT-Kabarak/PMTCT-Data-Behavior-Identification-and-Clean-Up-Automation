@@ -35,7 +35,7 @@ def make_prediction(facility, ward, sub_county, county, indicators, khis_data, d
   
 
 # Create a title for the web app
-st.title("HIV Prediction App")
+st.title("PMTCT Analysis & Reporting")
 
 # Create a form for the user to input data
 with st.form(key='hiv-form'):
@@ -64,15 +64,14 @@ if submit_button:
 # Import plotly
 import plotly.express as px
 
-
 # Load the data
 data = pd.read_csv('data.csv')
 
 # Create a title for the dashboard
-st.title("HIV Dashboard")
+st.title("PMTCT Dashboard")
 
 # Create a sidebar for the dashboard
-st.sidebar.title("HIV Dashboard")
+st.sidebar.title("PMTCT Reporting")
 
 # Next we will create a condition that will check if the multiselect widgets have been used
 if len(county) > 0:
@@ -162,9 +161,9 @@ else:
   st.write("HIV Positive Patients")
 
   # Create a bar chart
-  fig = px.bar(data, x='facility', y='datim_value', color='county', height=500)
+  fig = px.bar(data, x='facility', y='datim_value', color='county', facet_row='period', height=800)
   # add labels
-  fig.update_layout(xaxis_title="Facility", yaxis_title="Number of HIV Positive Patients")
+  fig.update_layout(xaxis_title="Facility", yaxis_title="Number of HIV Positive Patients", xaxis_tickangle=-90, margin=dict(r=150)) 
   # Display the chart
   st.plotly_chart(fig)
 
