@@ -71,12 +71,13 @@ data = pd.read_csv('data.csv')
 st.title("PMTCT Dashboard")
 
 # Create a sidebar for the dashboard
-st.sidebar.title("PMTCT Reporting")
+st.sidebar.title("PMTCT Reporting Dashboard")
 
 # Next we will create a condition that will check if the multiselect widgets have been used
 if len(county) > 0:
-  # Filter the data
-  data = data[data['county'].isin(county)]
+  if isinstance(county, str) or not hasattr(county, '__iter__'):
+    county = [county]
+    data = data[data['county'].isin(county)]
 
 # Create a multiselect widget for the dashboard
 county = st.sidebar.multiselect("County", data['county'].unique())
@@ -90,8 +91,9 @@ if len(county) > 0:
   sub_county = st.sidebar.multiselect("Sub County", data['sub_county'].unique())
   # Create a condition that will check if the sub county multiselect widget has been used
   if len(sub_county) > 0:
-    # Filter the data
-    data = data[data['sub_county'].isin(sub_county)]
+    if isinstance(sub_county, str) or not hasattr(sub_county, '__iter__'):
+      sub_county = [sub_county]
+      data = data[data['sub_county'].isin(sub_county)]
 else:
   # Update the sub county multiselect widget to match the data
   sub_county = st.sidebar.multiselect("Sub County", data['sub_county'].unique())
@@ -105,8 +107,9 @@ if len(sub_county) > 0:
   ward = st.sidebar.multiselect("Ward", data['ward'].unique())
   # Create a condition that will check if the ward multiselect widget has been used
   if len(ward) > 0:
-    # Filter the data
-    data = data[data['ward'].isin(ward)]
+    if isinstance(ward, str) or not hasattr(ward, '__iter__'):
+      ward = [ward]
+      data = data[data['ward'].isin(ward)]
 else:
   # Update the ward multiselect widget to match the data
   ward = st.sidebar.multiselect("Ward", data['ward'].unique())
@@ -120,25 +123,36 @@ if len(ward) > 0:
   facility = st.sidebar.multiselect("Facility", data['facility'].unique())
   # Create a condition that will check if the facility multiselect widget has been used
   if len(facility) > 0:
-    # Filter the data
-    data = data[data['facility'].isin(facility)]
+    if isinstance(facility, str) or not hasattr(facility, '__iter__'):
+      ward = [ward]
+      data = data[data['facility'].isin(facility)]
 else:
   # Update the facility multiselect widget to match the data
   facility = st.sidebar.multiselect("Facility", data['facility'].unique())
 
 if len(indicators) > 0:
+  if isinstance(indicators, str) or not hasattr(indicators, '__iter__'):
+    indicators = [indicators]
   # Filter the data
   data = data[data['indicators'].isin(indicators)]
 if len(khis_data) > 0:
+  if isinstance(khis_data, str) or not hasattr(khis_data, '__iter__'):
+    khis_data = [khis_data]
   # Filter the data
   data = data[data['khis_data'].isin(khis_data)]
 if len(datim_value) > 0:
+  if isinstance(datim_value, str) or not hasattr(datim_value, '__iter__'):
+    datim_value = [datim_value]
   # Filter the data
   data = data[data['datim_value'].isin(datim_value)]
 if len(period) > 0:
+  if isinstance(period, str) or not hasattr(period, '__iter__'):
+    period = [period]
   # Filter the data
   data = data[data['period'].isin(period)]
-if len(Month) > 0:  
+if len(Month) > 0:
+  if isinstance(Month, str) or not hasattr(Month, '__iter__'):
+    Month = [Month] 
   # Filter the data
   data = data[data['Month'].isin(Month)]
 
